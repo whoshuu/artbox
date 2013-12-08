@@ -30,7 +30,7 @@ A key point here is that the `PositionUpdateSystem` does not care that our playe
 
  * Fully integrated artemis and jbox2d frameworks to provide quick and easy development of 2D Android games.
  * API for injecting new `Components`, `Entities`, and `Systems` into the base engine to define new objects and behaviors.
- * JSON-backed `Components` and `Entities` allow for designing game objects without touching the source code.
+ * JSON-backed `Entities` allow for designing game objects without touching the source code.
 
 ### Installing
 
