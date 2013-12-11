@@ -11,11 +11,9 @@ import java.util.Map;
  *
  */
 public class TagManager {
-	private GameWorld world;
 	private Map<String, Entity> entityByTag;
 
 	public TagManager(GameWorld world) {
-		this.world = world;
 		entityByTag = new HashMap<String, Entity>();
 	}
 

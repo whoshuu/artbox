@@ -16,13 +16,11 @@ import com.whoshuu.artbox.artemis.utils.ImmutableBag;
  *
  */
 public class GroupManager {
-	private GameWorld world;
 	private Bag<Entity> EMPTY_BAG;
 	private Map<String, Bag<Entity>> entitiesByGroup;
 	private Bag<String> groupByEntity;
 
 	public GroupManager(GameWorld world) {
-		this.world = world;
 		entitiesByGroup = new HashMap<String, Bag<Entity>>();
 		groupByEntity = new Bag<String>();
 		EMPTY_BAG = new Bag<Entity>();

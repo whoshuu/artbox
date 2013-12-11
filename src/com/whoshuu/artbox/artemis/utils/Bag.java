@@ -1,7 +1,5 @@
 package com.whoshuu.artbox.artemis.utils;
 
-import java.util.ArrayList;
-import java.util.Iterator;
 
 /**
  * Collection type a bit like ArrayList but does not preserve the order of its
@@ -38,6 +36,7 @@ public class Bag<E> implements ImmutableBag<E> {
 	 *            the index of element to be removed
 	 * @return element that was removed from the Bag
 	 */
+	@SuppressWarnings("unchecked")
 	public E remove(int index) {
 		Object o = data[index]; // make copy of element to remove so it can be
 		// returned
@@ -53,6 +52,7 @@ public class Bag<E> implements ImmutableBag<E> {
 	 * 
 	 * @return the last object in the bag, null if empty.
 	 */
+	@SuppressWarnings("unchecked")
 	public E removeLast() {
 		if(size > 0) {
 			Object o = data[--size];
@@ -138,6 +138,7 @@ public class Bag<E> implements ImmutableBag<E> {
 	 *            index of the element to return
 	 * @return the element at the specified position in bag
 	 */
+	@SuppressWarnings("unchecked")
 	public E get(int index) {
 		return (E) data[index];
 	}
