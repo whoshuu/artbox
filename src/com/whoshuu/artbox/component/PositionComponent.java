@@ -1,20 +1,24 @@
 package com.whoshuu.artbox.component;
 
-import com.whoshuu.artbox.artemis.Component;
+import org.json.JSONException;
+import org.json.JSONObject;
 
-public class PositionComponent extends Component {
+import com.whoshuu.artbox.artemis.utils.JSONComponent;
+
+public class PositionComponent extends JSONComponent {
 
     public PositionComponent() {
-        resetPosition();
+        this(0, 0, 0);
     }
 
-    public PositionComponent(float x, float y) {
-        setPosition(x, y);
+    public PositionComponent(float x, float y, float angle) {
+        setPosition(x, y, angle);
     }
 
-    public void setPosition(float x, float y) {
-        this.x = x;
-        this.y = y;
+    public void setPosition(float x, float y, float angle) {
+        this.setX(x);
+        this.setY(y);
+        this.setAngle(angle);
     }
 
     public void setX(float x) {
@@ -25,6 +29,10 @@ public class PositionComponent extends Component {
         this.y = y;
     }
 
+    public void setAngle(float angle) {
+        this.angle = angle;
+    }
+
     public float getX() {
         return this.x;
     }
@@ -33,11 +41,16 @@ public class PositionComponent extends Component {
         return this.y;
     }
 
-    public void resetPosition() {
-        this.x = 0;
-        this.y = 0;
+    public float getAngle() {
+        return this.angle;
+    }
+
+    @Override
+    public void fromJSON(JSONObject json, float x, float y, float angle) throws JSONException {
+        this.setPosition(x, y, angle);
     }
 
     private float x;
     private float y;
+    private float angle;
 }
