@@ -1,0 +1,7 @@
+{
+  "Components": [
+    {"type": "com.whoshuu.artbox.component.PositionComponent",
+     "x": 5,
+     "y": 3}
+  ]
+}
