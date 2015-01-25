@@ -38,7 +38,7 @@ public class DragComponent extends JSONComponent {
             def.bodyB = body;
             def.target.set(x, y);
             this.joint = (MouseJoint) GameContext.get().getPhysics().createJoint(def);
-            this.joint.setMaxForce(1000.0f * body.getMass());
+            this.joint.setMaxForce(100000000000000.0f * body.getMass());
             this.grabbed = true;
             body.setAwake(true);
         }
