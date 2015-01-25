@@ -111,26 +111,24 @@ public class EntityLoader {
             try {
                 Class<? extends JSONComponent> c =
                     (Class<? extends JSONComponent>) Class.forName(jsonComponent.getString("type"));
-                try {
                     component = c.newInstance();
                     component.fromJSON(jsonComponent, x, y, angle);
-                } catch (InstantiationException e) {
-                    e.printStackTrace();
-                    entity.delete();
-                    return null;
-                } catch (IllegalAccessException e) {
-                    e.printStackTrace();
-                    entity.delete();
-                    return null;
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                    entity.delete();
-                    return null;
-                }
             } catch (ClassNotFoundException e) {
-                e.printStackTrace();
-                entity.delete();
-                return null;
+            	e.printStackTrace();
+            	entity.delete();
+            	return null;
+            } catch (InstantiationException e) {
+            	e.printStackTrace();
+            	entity.delete();
+            	return null;
+            } catch (IllegalAccessException e) {
+            	e.printStackTrace();
+            	entity.delete();
+            	return null;
+            } catch (JSONException e) {
+            	e.printStackTrace();
+            	entity.delete();
+            	return null;
             }
             entity.addComponent(component);
         }
