@@ -26,7 +26,6 @@ import com.whoshuu.artbox.system.SystemType;
 import com.whoshuu.artbox.system.TouchDragSystem;
 import com.whoshuu.artbox.system.TouchListener;
 import com.whoshuu.artbox.system.TouchUpdateSystem;
-import com.whoshuu.artbox.util.EntityLoader;
 import com.whoshuu.artbox.util.MapLoader;
 import com.whoshuu.artbox.util.SizeUtil;
 
@@ -109,7 +108,6 @@ public class Engine extends Thread implements OnTouchListener {
 
     private void initializeMap() {
         MapLoader.fromJsonAsset("maps/level.json");
-        EntityLoader.fromJsonAsset("entities/box.json", 6.5f, 4.0f);
     }
 
     private void initializeSystems() {
