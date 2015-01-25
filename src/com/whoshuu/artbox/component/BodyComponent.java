@@ -39,6 +39,7 @@ public class BodyComponent extends JSONComponent {
                 ? BodyType.DYNAMIC : BodyType.STATIC;
         def.position.set(x, y);
         def.angle = angle;
+        def.fixedRotation = !json.optBoolean("rotate", true);
 
         this.body = GameContext.get().getPhysics().createBody(def);
         if (body != null) {
