@@ -37,9 +37,9 @@ public class SpriteRenderSystem extends RenderSystem {
         float y = SizeUtil.getRenderY(position.getY());
 
         dest.set((int) x - (source.width() / 2),
-                (int) y - (source.height() / 2),
-                (int) x + (source.width() / 2),
-                (int) y + (source.height() / 2));
+                 (int) y - (source.height() / 2),
+                 (int) x + (source.width() / 2),
+                 (int) y + (source.height() / 2));
 
         canvas.rotate((float) - Math.toDegrees(position.getAngle()), x, y);
         canvas.drawBitmap(bitmap, source, dest, null); 
