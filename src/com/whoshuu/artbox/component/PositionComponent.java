@@ -47,6 +47,11 @@ public class PositionComponent extends JSONComponent {
 
     @Override
     public void fromJSON(JSONObject json, float x, float y, float angle) throws JSONException {
+    	/*
+         * "type": "com.whoshuu.artbox.component.PositionComponent"
+         * 
+         * x, y, and angle are taken from the object position and angle
+         */
         this.setPosition(x, y, angle);
     }
 

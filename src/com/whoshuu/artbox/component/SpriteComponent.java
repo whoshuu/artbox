@@ -36,17 +36,21 @@ public class SpriteComponent extends JSONComponent {
 
     @Override
     public void fromJSON(JSONObject json, float x, float y, float angle) throws JSONException {
-        /*
-        * {
-        *   "animations": [
-        *     "type": (string) string name for the animation type,
-        *     "source": (String) location of asset,
-        *     "frames": (int) number of frames in animation,
-        *     "w": width of frame,
-        *     "h": height of frame
-        *   ]
-        * }
-        */
+    	/* 
+    	 * "type": "com.whoshuu.artbox.component.SpriteComponent",
+         * "animations": [
+         *   {
+         *     "type": (string) string name for the animation type,
+         *     "source": (string) location of asset,
+         *     "frames": (int) number of frames in animation,
+         *     "w": width of frame,
+         *     "h": height of frame
+         *   },
+         *   {
+         *     ...
+         *   }
+         * ]
+         */
         JSONArray jsonAnimations = json.getJSONArray("animations");
         for (int i = 0; i < jsonAnimations.length(); i++) {
             JSONObject jsonAnimation = jsonAnimations.getJSONObject(i);

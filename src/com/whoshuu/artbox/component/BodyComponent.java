@@ -30,6 +30,10 @@ public class BodyComponent extends JSONComponent {
 
     @Override
     public void fromJSON(JSONObject json, float x, float y, float angle) throws JSONException {
+    	/*
+         * "type": "com.whoshuu.artbox.component.BodyComponent"
+         * ...
+         */
         BodyDef def = new BodyDef();
         def.type = json.optString("bodytype", "dynamic").equals("dynamic")
                 ? BodyType.DYNAMIC : BodyType.STATIC;

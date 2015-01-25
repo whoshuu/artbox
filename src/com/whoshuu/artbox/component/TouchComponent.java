@@ -80,7 +80,9 @@ public class TouchComponent extends JSONComponent {
 
     @Override
     public void fromJSON(JSONObject json, float x, float y, float angle) throws JSONException {
-
+    	/*
+         * "type": "com.whoshuu.artbox.component.TouchComponent"
+         */
     }
 
     private boolean down;

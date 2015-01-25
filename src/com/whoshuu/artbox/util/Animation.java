@@ -17,7 +17,8 @@ public class Animation {
     public Animation(JSONObject json) throws JSONException {
         /*
         * {
-        *   "source": (String) location of asset,
+        *   "type": (string) string name for the animation type,
+        *   "source": (string) location of asset,
         *   "frames": (int) number of frames in animation,
         *   "w": width of frame,
         *   "h": height of frame

@@ -25,6 +25,10 @@ public class RenderComponent extends JSONComponent {
 
     @Override
     public void fromJSON(JSONObject json, float x, float y, float angle) throws JSONException {
+        /*
+         * "type": "com.whoshuu.artbox.component.RenderComponent",
+         * "z": (int) index for ordering rendered objects
+         */
         this.zOrder = json.getInt("z");
     }
 

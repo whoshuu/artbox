@@ -62,9 +62,9 @@ public class DragComponent extends JSONComponent {
 
     @Override
     public void fromJSON(JSONObject json, float x, float y, float angle) throws JSONException {
-        /*
-        * No json support necessary
-        */
+    	/*
+         * "type": "com.whoshuu.artbox.component.DragComponent"
+         */
     }
 
     private Vec2 anchorB;
