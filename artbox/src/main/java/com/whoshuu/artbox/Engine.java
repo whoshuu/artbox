@@ -1,10 +1,5 @@
 package com.whoshuu.artbox;
 
-import java.util.ArrayList;
-
-import org.jbox2d.common.Vec2;
-import org.jbox2d.dynamics.World;
-
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
@@ -28,6 +23,11 @@ import com.whoshuu.artbox.system.TouchListener;
 import com.whoshuu.artbox.system.TouchUpdateSystem;
 import com.whoshuu.artbox.util.MapLoader;
 import com.whoshuu.artbox.util.SizeUtil;
+
+import org.jbox2d.common.Vec2;
+import org.jbox2d.dynamics.World;
+
+import java.util.ArrayList;
 
 public class Engine extends Thread implements OnTouchListener {
 
@@ -135,7 +135,7 @@ public class Engine extends Thread implements OnTouchListener {
         if (canvas != null) {
             SizeUtil.w = canvas.getWidth();
             SizeUtil.h = canvas.getHeight();
-            canvas.drawColor(Color.rgb(0, 0, 0));
+            canvas.drawColor(Color.rgb(200, 200, 200));
             for (int i = 0; i < systems.size(); i++) {
                 if ((i == SystemType.PRE_RENDER.ordinal() ||
                      i == SystemType.BASE_RENDER.ordinal() ||

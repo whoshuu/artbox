@@ -1,13 +1,5 @@
 package com.whoshuu.artbox.system;
 
-import org.jbox2d.collision.shapes.CircleShape;
-import org.jbox2d.collision.shapes.EdgeShape;
-import org.jbox2d.collision.shapes.PolygonShape;
-import org.jbox2d.collision.shapes.ShapeType;
-import org.jbox2d.common.Vec2;
-import org.jbox2d.dynamics.Body;
-import org.jbox2d.dynamics.Fixture;
-
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Paint.Style;
@@ -20,6 +12,14 @@ import com.whoshuu.artbox.component.BodyComponent;
 import com.whoshuu.artbox.component.PositionComponent;
 import com.whoshuu.artbox.component.RenderComponent;
 import com.whoshuu.artbox.util.SizeUtil;
+
+import org.jbox2d.collision.shapes.CircleShape;
+import org.jbox2d.collision.shapes.EdgeShape;
+import org.jbox2d.collision.shapes.PolygonShape;
+import org.jbox2d.collision.shapes.ShapeType;
+import org.jbox2d.common.Vec2;
+import org.jbox2d.dynamics.Body;
+import org.jbox2d.dynamics.Fixture;
 
 public class DebugBodyRenderSystem extends RenderSystem {
 
@@ -74,7 +74,10 @@ public class DebugBodyRenderSystem extends RenderSystem {
                     float y1 = SizeUtil.getRenderY(cy + edge.m_vertex1.x);
                     float x2 = SizeUtil.getRenderX(cx + edge.m_vertex2.x);
                     float y2 = SizeUtil.getRenderY(cy + edge.m_vertex2.y);
+                    float old = paint.getStrokeWidth();
+                    paint.setStrokeWidth(10f);
                     canvas.drawLine(x1, y1, x2, y2, paint);
+                    paint.setStrokeWidth(old);
                     break;
                 case POLYGON:
                     paint.setColor(Color.GREEN);

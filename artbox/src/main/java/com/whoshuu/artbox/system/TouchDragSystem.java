@@ -1,7 +1,5 @@
 package com.whoshuu.artbox.system;
 
-import org.jbox2d.dynamics.Body;
-
 import com.whoshuu.artbox.artemis.ComponentMapper;
 import com.whoshuu.artbox.artemis.Entity;
 import com.whoshuu.artbox.artemis.EntitySystem;
@@ -9,6 +7,9 @@ import com.whoshuu.artbox.component.BodyComponent;
 import com.whoshuu.artbox.component.DragComponent;
 import com.whoshuu.artbox.component.TouchComponent;
 import com.whoshuu.artbox.util.SizeUtil;
+
+import org.jbox2d.common.Vec2;
+import org.jbox2d.dynamics.Body;
 
 public class TouchDragSystem extends EntitySystem {
 
@@ -42,9 +43,8 @@ public class TouchDragSystem extends EntitySystem {
                 }
             } else {
                 if (touch.isDown()) {
-                    float x = SizeUtil.getGameX((float) touch.getDownX());
-                    float y = SizeUtil.getGameY((float) touch.getDownY());
-                    drag.createJoint(x, y, body);
+                    Vec2 bodyPosition = body.getPosition();
+                    drag.createJoint(bodyPosition.x, bodyPosition.y, body);
                 }
             }
         }
