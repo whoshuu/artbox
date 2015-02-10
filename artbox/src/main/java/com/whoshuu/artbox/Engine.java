@@ -52,7 +52,7 @@ public class Engine extends Thread implements OnTouchListener {
 
     public void initialize(Context context) {
         GameContext.createGameContext(this, physics, game, context);
-        initializeMap(); // This will add the base systems
+        initializeMap();
         initializeSystems();
     }
 
