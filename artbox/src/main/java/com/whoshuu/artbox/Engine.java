@@ -71,7 +71,7 @@ public class Engine extends Thread implements OnTouchListener {
     public void run() {
         Canvas canvas;
 
-        final float timeStep = 1.0f/60.0f;
+        final float timeStep = 1.0f/30.0f;
         int positionIterations = 10;
         int velocityIterations = 10;
 
