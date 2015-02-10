@@ -21,7 +21,7 @@ public class SpriteRenderSystem extends RenderSystem {
     protected void initialize() {
         dest = new Rect();
         this.positions = new ComponentMapper<PositionComponent>(PositionComponent.class,
-        this.world);
+                this.world);
         this.bitmaps = new ComponentMapper<SpriteComponent>(SpriteComponent.class, this.world);
         super.initialize();
     }
