@@ -59,8 +59,8 @@ public class MapLoader {
         JSONArray jsonEntities = json.getJSONArray("Entities");
         for (int i = 0; i < jsonEntities.length(); i++) {
             JSONObject jsonEntity = jsonEntities.getJSONObject(i);
-            if (jsonEntity.has("x")) {
-                float x = (float) jsonEntity.getDouble("x");
+            if (jsonEntity.has("x") || jsonEntity.has("y")) {
+                float x = (float) jsonEntity.optDouble("x", 0.0);
                 float y = (float) jsonEntity.optDouble("y", 0.0);
                 if (jsonEntity.has("angle")) {
                     float angle = (float) jsonEntity.getDouble("angle");
