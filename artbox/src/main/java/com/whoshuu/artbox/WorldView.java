@@ -8,6 +8,10 @@ import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 
 import com.whoshuu.artbox.artemis.EntitySystem;
+import com.whoshuu.artbox.system.AnimationSystem;
+import com.whoshuu.artbox.system.BodyPositionSystem;
+import com.whoshuu.artbox.system.DebugBodyRenderSystem;
+import com.whoshuu.artbox.system.SpriteRenderSystem;
 import com.whoshuu.artbox.system.SystemType;
 
 public class WorldView extends SurfaceView implements SurfaceHolder.Callback {
@@ -18,14 +22,19 @@ public class WorldView extends SurfaceView implements SurfaceHolder.Callback {
         engine = new Engine(getHolder());
         this.setOnTouchListener(engine);
         setFocusable(true);
+
+        addSystem(new BodyPositionSystem(), SystemType.BASE_LOGIC);
+        addSystem(new AnimationSystem(), SystemType.BASE_LOGIC);
+        addSystem(new SpriteRenderSystem(), SystemType.BASE_RENDER);
+        addSystem(new DebugBodyRenderSystem(), SystemType.BASE_RENDER);
     }
 
     public void addSystems(ArrayList<EntitySystem> systems, SystemType type) {
-    for (EntitySystem system : systems)
-        addSystems(system, type);
+        for (EntitySystem system : systems)
+            addSystem(system, type);
     }
 
-    public void addSystems(EntitySystem system, SystemType type) {
+    public void addSystem(EntitySystem system, SystemType type) {
         engine.addSystem(system, type);
     }
 

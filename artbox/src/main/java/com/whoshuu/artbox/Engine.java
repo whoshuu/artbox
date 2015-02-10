@@ -11,14 +11,8 @@ import android.view.View.OnTouchListener;
 import com.whoshuu.artbox.artemis.EntitySystem;
 import com.whoshuu.artbox.artemis.GameWorld;
 import com.whoshuu.artbox.artemis.SystemManager;
-import com.whoshuu.artbox.system.AnimationSystem;
-import com.whoshuu.artbox.system.BodyPositionSystem;
-import com.whoshuu.artbox.system.DebugBodyRenderSystem;
-import com.whoshuu.artbox.system.DebugDragRenderSystem;
 import com.whoshuu.artbox.system.RenderSystem;
-import com.whoshuu.artbox.system.SpriteRenderSystem;
 import com.whoshuu.artbox.system.SystemType;
-import com.whoshuu.artbox.system.TouchDragSystem;
 import com.whoshuu.artbox.system.TouchListener;
 import com.whoshuu.artbox.system.TouchUpdateSystem;
 import com.whoshuu.artbox.util.MapLoader;
@@ -50,6 +44,10 @@ public class Engine extends Thread implements OnTouchListener {
         }
 
         loadMap("maps/level.json");
+
+        TouchUpdateSystem touchSystem = new TouchUpdateSystem();
+        touchListeners.add(touchSystem);
+        addSystem(touchSystem, SystemType.BASE_LOGIC);
     }
 
     public void initialize(Context context) {
@@ -118,15 +116,6 @@ public class Engine extends Thread implements OnTouchListener {
 
     private void initializeSystems() {
         SystemManager systemManager = game.getSystemManager();
-        TouchUpdateSystem touchSystem = new TouchUpdateSystem();
-        touchListeners.add(touchSystem);
-        systems.get(SystemType.BASE_LOGIC.ordinal()).add(touchSystem);
-        systems.get(SystemType.BASE_LOGIC.ordinal()).add(new BodyPositionSystem());
-        systems.get(SystemType.BASE_LOGIC.ordinal()).add(new AnimationSystem());
-        systems.get(SystemType.BASE_LOGIC.ordinal()).add(new TouchDragSystem());
-        systems.get(SystemType.BASE_RENDER.ordinal()).add(new SpriteRenderSystem());
-        systems.get(SystemType.BASE_RENDER.ordinal()).add(new DebugBodyRenderSystem());
-        systems.get(SystemType.BASE_RENDER.ordinal()).add(new DebugDragRenderSystem());
 
         for (int i = 0; i < systems.size(); i++) {
             for (int j = 0; j < systems.get(i).size(); j++) {
