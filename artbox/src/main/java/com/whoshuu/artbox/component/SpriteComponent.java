@@ -43,8 +43,10 @@ public class SpriteComponent extends JSONComponent {
          *     "type": (string) string name for the animation type,
          *     "source": (string) location of asset,
          *     "frames": (int) number of frames in animation,
-         *     "w": width of frame,
-         *     "h": height of frame
+         *     "sw": (float) scale factor of rendering,
+         *     "sh": (float) scale factor of rendering,
+         *     "w": (int) width of frame,
+         *     "h": (int) height of frame
          *   },
          *   {
          *     ...

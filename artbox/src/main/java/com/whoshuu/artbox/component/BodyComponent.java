@@ -32,7 +32,70 @@ public class BodyComponent extends JSONComponent {
     public void fromJSON(JSONObject json, float x, float y, float angle) throws JSONException {
     	/*
          * "type": "com.whoshuu.artbox.component.BodyComponent"
-         * ...
+         * "rotate": (bool) whether to allow the rotation of the body
+         * "shape": {
+         *   "type": (string) type of body shape to create
+         *   ...
+         * }
+         *
+         * Depending on the type of shape, different parameters are available:
+         *
+         * [Circle]
+         * "shape": {
+         *   "type": "circle",
+         *   "radius": (float) radius of the circle in game coordinates
+         * }
+         *
+         * [Edge]
+         * "shape": {
+         *   "type": "edge",
+         *   "x2": (float) x coordinate of the second point,
+         *   "y2": (float) y coordinate of the second point
+         * }
+         *
+         * [Box]
+         * "shape": {
+         *   "type": "box",
+         *   "w": (float) entire width of the box,
+         *   "h": (float) entire height of the box 
+         * }
+         *
+         * [Polygon]
+         * The points begin with the body point, then continue with the points array. It will loop
+         * back automatically to the body point.
+         * "shape": {
+         *   "type": "polygon",
+         *   "points": [
+         *     {
+         *       "x": (float) x coordinate of a point,
+         *       "y": (float) y coordinate of a point
+         *     },
+         *     {
+         *       "x": (float) x coordinate of a point,
+         *       "y": (float) y coordinate of a point
+         *     },
+         *     ...
+         *   ]
+         * }
+         *
+         * [Chain]
+         * The points begin with the body point, then continue with the points array, and will end
+         * when all points are exhausted. This does not loop back.
+         * "shape": {
+         *   "type": "chain",
+         *   "points": [
+         *     {
+         *       "x": (float) x coordinate of a point,
+         *       "y": (float) y coordinate of a point
+         *     },
+         *     {
+         *       "x": (float) x coordinate of a point,
+         *       "y": (float) y coordinate of a point
+         *     },
+         *     ...
+         *   ]
+         * }
+         *
          */
         BodyDef def = new BodyDef();
         def.type = json.optString("bodytype", "dynamic").equals("dynamic")
