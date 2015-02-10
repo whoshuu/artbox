@@ -48,12 +48,18 @@ public class Engine extends Thread implements OnTouchListener {
         for (int i = 0; i < SystemType.values().length; i++) {
             systems.add(new ArrayList<EntitySystem>());
         }
+
+        loadMap("maps/level.json");
     }
 
     public void initialize(Context context) {
         GameContext.createGameContext(this, physics, game, context);
         initializeMap();
         initializeSystems();
+    }
+
+    public void loadMap(String map) {
+        this.map = map;
     }
 
     public void addSystem(EntitySystem system, SystemType type) {
@@ -107,7 +113,7 @@ public class Engine extends Thread implements OnTouchListener {
     }
 
     private void initializeMap() {
-        MapLoader.fromJsonAsset("maps/level.json");
+        MapLoader.fromJsonAsset(map);
     }
 
     private void initializeSystems() {
@@ -175,4 +181,5 @@ public class Engine extends Thread implements OnTouchListener {
     private GameWorld game;
     private ArrayList<TouchListener> touchListeners;
     private ArrayList<ArrayList<EntitySystem>> systems;
+    private String map;
 }
