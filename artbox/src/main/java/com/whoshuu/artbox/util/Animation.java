@@ -10,6 +10,7 @@ import com.whoshuu.artbox.GameContext;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Matrix;
 import android.graphics.Rect;
 
 public class Animation {
@@ -20,8 +21,10 @@ public class Animation {
         *   "type": (string) string name for the animation type,
         *   "source": (string) location of asset,
         *   "frames": (int) number of frames in animation,
-        *   "w": width of frame,
-        *   "h": height of frame
+        *   "sw": (float) scale factor of rendering,
+        *   "sh": (float) scale factor of rendering,
+        *   "w": (int) width of frame,
+        *   "h": (int) height of frame
         * }
         */
         InputStream stream = null;
@@ -31,12 +34,23 @@ public class Animation {
             e.printStackTrace();
         }
 
-        Bitmap bitmap = BitmapFactory.decodeStream(stream);
+        Bitmap rawBitmap = BitmapFactory.decodeStream(stream);
+        int width = rawBitmap.getWidth();
+        int height = rawBitmap.getHeight();
+        double scaleWidth = json.optDouble("sw", 1);
+        double scaleHeight = json.optDouble("sh", 1);
+        if (scaleWidth != 1 || scaleHeight != 1) {
+            Matrix matrix = new Matrix();
+            matrix.postScale((float) scaleWidth, (float) scaleHeight);
+            Bitmap bitmap = Bitmap.createBitmap(rawBitmap, 0, 0, width, height, matrix, false);
+            this.bitmap = bitmap;
+        } else {
+            this.bitmap = rawBitmap;
+        }
         this.frame = 0;
-        this.bitmap = bitmap;
         this.frames = json.optInt("frames", 1);
-        this.source = new Rect(0, 0, json.optInt("w", bitmap.getWidth()),
-                json.optInt("h", bitmap.getHeight()));
+        this.source = new Rect(0, 0, (int) (json.optInt("w", width) * scaleWidth),
+                (int) (json.optInt("h", height) * scaleHeight));
     }
 
     public Bitmap getBitmap() {
