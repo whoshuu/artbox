@@ -27,6 +27,8 @@ public class WorldView extends SurfaceView implements SurfaceHolder.Callback {
         addSystem(new AnimationSystem(), SystemType.BASE_LOGIC);
         addSystem(new SpriteRenderSystem(), SystemType.BASE_RENDER);
         addSystem(new DebugBodyRenderSystem(), SystemType.BASE_RENDER);
+
+        engine.loadMap("maps/level.json");
     }
 
     public void addSystems(ArrayList<EntitySystem> systems, SystemType type) {

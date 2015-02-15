@@ -47,8 +47,6 @@ public class Engine extends Thread implements OnTouchListener {
             systems.add(new ArrayList<EntitySystem>());
         }
 
-        loadMap("maps/level.json");
-
         TouchUpdateSystem touchSystem = new TouchUpdateSystem();
         touchListeners.add(touchSystem);
         addSystem(touchSystem, SystemType.BASE_LOGIC);
