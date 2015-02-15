@@ -13,6 +13,7 @@ import com.whoshuu.artbox.system.BodyPositionSystem;
 import com.whoshuu.artbox.system.DebugBodyRenderSystem;
 import com.whoshuu.artbox.system.SpriteRenderSystem;
 import com.whoshuu.artbox.system.SystemType;
+import com.whoshuu.artbox.system.TouchUpdateSystem;
 
 public class WorldView extends SurfaceView implements SurfaceHolder.Callback {
 
@@ -21,6 +22,11 @@ public class WorldView extends SurfaceView implements SurfaceHolder.Callback {
         getHolder().addCallback(this);
         engine = new Engine(getHolder(), 0.0f, -10.0f);
         this.setOnTouchListener(engine);
+
+        TouchUpdateSystem touchSystem = new TouchUpdateSystem();
+        engine.addTouchListener(touchSystem);
+        addSystem(touchSystem, SystemType.BASE_LOGIC);
+
         setFocusable(true);
 
         addSystem(new BodyPositionSystem(), SystemType.BASE_LOGIC);

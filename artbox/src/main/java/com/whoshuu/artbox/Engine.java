@@ -14,7 +14,6 @@ import com.whoshuu.artbox.artemis.SystemManager;
 import com.whoshuu.artbox.system.RenderSystem;
 import com.whoshuu.artbox.system.SystemType;
 import com.whoshuu.artbox.system.TouchListener;
-import com.whoshuu.artbox.system.TouchUpdateSystem;
 import com.whoshuu.artbox.util.MapLoader;
 import com.whoshuu.artbox.util.SizeUtil;
 
@@ -46,10 +45,6 @@ public class Engine extends Thread implements OnTouchListener {
         for (int i = 0; i < SystemType.values().length; i++) {
             systems.add(new ArrayList<EntitySystem>());
         }
-
-        TouchUpdateSystem touchSystem = new TouchUpdateSystem();
-        touchListeners.add(touchSystem);
-        addSystem(touchSystem, SystemType.BASE_LOGIC);
     }
 
     public void initialize(Context context) {
@@ -60,6 +55,10 @@ public class Engine extends Thread implements OnTouchListener {
 
     public void loadMap(String map) {
         this.map = map;
+    }
+
+    public void addTouchListener(TouchListener listener) {
+        touchListeners.add(listener);
     }
 
     public void addSystem(EntitySystem system, SystemType type) {
