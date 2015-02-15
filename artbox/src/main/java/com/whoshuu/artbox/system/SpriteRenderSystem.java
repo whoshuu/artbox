@@ -22,31 +22,31 @@ public class SpriteRenderSystem extends RenderSystem {
         dest = new Rect();
         this.positions = new ComponentMapper<PositionComponent>(PositionComponent.class,
                 this.world);
-        this.bitmaps = new ComponentMapper<SpriteComponent>(SpriteComponent.class, this.world);
+        this.sprites = new ComponentMapper<SpriteComponent>(SpriteComponent.class, this.world);
         super.initialize();
     }
 
     @Override
     protected void processEntity(Entity entity) {
         PositionComponent position = positions.get(entity);
-        SpriteComponent bitmapComponent = bitmaps.get(entity);
-        Bitmap bitmap = bitmapComponent.getBitmap();
-        Rect source = bitmapComponent.getSource();
+        SpriteComponent spriteComponent = sprites.get(entity);
+        Bitmap bitmap = spriteComponent.getBitmap();
+        Rect renderWindow = spriteComponent.getRenderWindow();
 
         float x = SizeUtil.getRenderX(position.getX());
         float y = SizeUtil.getRenderY(position.getY());
 
-        dest.set((int) x - (source.width() / 2),
-                 (int) y - (source.height() / 2),
-                 (int) x + (source.width() / 2),
-                 (int) y + (source.height() / 2));
+        dest.set((int) x - (renderWindow.width() / 2),
+                 (int) y - (renderWindow.height() / 2),
+                 (int) x + (renderWindow.width() / 2),
+                 (int) y + (renderWindow.height() / 2));
 
         canvas.rotate((float) - Math.toDegrees(position.getAngle()), x, y);
-        canvas.drawBitmap(bitmap, source, dest, null); 
+        canvas.drawBitmap(bitmap, renderWindow, dest, null); 
         canvas.rotate((float) Math.toDegrees(position.getAngle()), x, y);
     }
 
     private Rect dest;
     private ComponentMapper<PositionComponent> positions;
-    private ComponentMapper<SpriteComponent> bitmaps;
+    private ComponentMapper<SpriteComponent> sprites;
 }

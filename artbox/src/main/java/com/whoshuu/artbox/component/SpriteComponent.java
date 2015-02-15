@@ -1,5 +1,7 @@
 package com.whoshuu.artbox.component;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.HashMap;
 
 import org.json.JSONArray;
@@ -7,61 +9,107 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Matrix;
 import android.graphics.Rect;
 
+import com.whoshuu.artbox.GameContext;
 import com.whoshuu.artbox.artemis.utils.JSONComponent;
-import com.whoshuu.artbox.util.Animation;
 
 public class SpriteComponent extends JSONComponent {
 
     public SpriteComponent() {
-        animations = new HashMap<String, Animation>();
-    }
-
-    public void addAnimation(String type, Animation animation) {
-        animations.put(type, animation);
+        sprites = new HashMap<String, Sprite>();
     }
 
     public Bitmap getBitmap() {
-        return this.animations.get(current).getBitmap();
+        return current.getBitmap();
     }
 
-    public Rect getSource() {
-        return this.animations.get(current).getSource();
+    public Rect getRenderWindow() {
+        return current.getRenderWindow();
     }
 
-    public void nextFrame() {
-        this.animations.get(current).nextFrame();
+    public String getState() {
+        return state;
+    }
+
+    public void setState(String state) {
+        this.state = state;
+        this.current = sprites.get(state);
     }
 
     @Override
     public void fromJSON(JSONObject json, float x, float y, float angle) throws JSONException {
     	/* 
     	 * "type": "com.whoshuu.artbox.component.SpriteComponent",
-         * "animations": [
+         * "sprites": [
          *   {
-         *     "type": (string) string name for the animation type,
-         *     "source": (string) location of asset,
-         *     "frames": (int) number of frames in animation,
-         *     "sw": (float) scale factor of rendering,
-         *     "sh": (float) scale factor of rendering,
-         *     "w": (int) width of frame,
-         *     "h": (int) height of frame
+         *     "source": (string, required) location of asset,
+         *     "state": (string, "default") string name for the animation state,
+         *     "w": (int, width of source) rendering width,
+         *     "h": (int, height of source) rendering height
          *   },
          *   {
          *     ...
          *   }
          * ]
          */
-        JSONArray jsonAnimations = json.getJSONArray("animations");
-        for (int i = 0; i < jsonAnimations.length(); i++) {
-            JSONObject jsonAnimation = jsonAnimations.getJSONObject(i);
-            animations.put(jsonAnimation.optString("type", "default"),
-                    new Animation(jsonAnimation));
+        JSONArray jsonSprites = json.getJSONArray("sprites");
+        for (int i = 0; i < jsonSprites.length(); i++) {
+            JSONObject jsonSprite = jsonSprites.getJSONObject(i);
+            String state = jsonSprite.optString("state", "default");
+            sprites.put(state, new Sprite(jsonSprite));
+            if (i == 0) {
+                setState(state);
+            }
         }
-        current = jsonAnimations.getJSONObject(0).optString("type", "default");
     }
 
-    private HashMap<String, Animation> animations;
-    private String current;
+    private class Sprite {
+        private Bitmap bitmap;
+        private Rect renderWindow;
+
+        public Sprite(JSONObject json) throws JSONException {
+            InputStream stream = null;
+            try {
+                stream = GameContext.get().getAndroid().getAssets().open(json.getString("source"));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+            Bitmap rawBitmap = BitmapFactory.decodeStream(stream);
+            int width = rawBitmap.getWidth();
+            int height = rawBitmap.getHeight();
+
+            if (json.has("w") || json.has("h")) {
+                int scaleWidth = json.optInt("w", width);
+                int scaleHeight = json.optInt("h", height);
+                Matrix matrix = new Matrix();
+                matrix.postScale((float) scaleWidth / width, (float) scaleHeight / height);
+                Bitmap bitmap = Bitmap.createBitmap(rawBitmap, 0, 0, width, height, matrix, false);
+                this.bitmap = bitmap;
+                this.renderWindow = new Rect(0, 0, scaleWidth, scaleHeight);
+            } else {
+                this.bitmap = rawBitmap;
+                this.renderWindow = new Rect(0, 0, width, height);
+            }
+        }
+
+        public Bitmap getBitmap() {
+            return bitmap;
+        }
+
+        public Rect getRenderWindow() {
+            return renderWindow;
+        }
+
+        public String getState() {
+            return state;
+        }
+    }
+
+    private HashMap<String, Sprite> sprites;
+    private Sprite current;
+    private String state;
 }
