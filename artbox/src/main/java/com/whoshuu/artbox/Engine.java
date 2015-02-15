@@ -26,10 +26,14 @@ import java.util.ArrayList;
 public class Engine extends Thread implements OnTouchListener {
 
     public Engine(SurfaceHolder holder) {
+        this(holder, 0.0f, -10.0f);
+    }
+
+    public Engine(SurfaceHolder holder, float xGravity, float yGravity) {
         this.holder = holder;
 
         // Create the physics world
-        Vec2 gravity = new Vec2(0.0f, -10.0f);
+        Vec2 gravity = new Vec2(xGravity, yGravity);
         boolean sleep = true;
         physics = new World(gravity);
         physics.setAllowSleep(sleep);
