@@ -9,6 +9,9 @@ import java.io.StringWriter;
 import java.io.UnsupportedEncodingException;
 import java.io.Writer;
 
+import org.jbox2d.common.Vec2;
+import org.jbox2d.dynamics.World;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -56,7 +59,16 @@ public class MapLoader {
     }
 
     public static void fromJson(JSONObject json) throws JSONException {
-        JSONArray jsonEntities = json.getJSONArray("Entities");
+        if (json.has("gravity")) {
+            // If there's gravity, set it
+            World physics = GameContext.get().getPhysics();
+            JSONObject jsonGravity = json.getJSONObject("gravity");
+            Vec2 gravity = new Vec2(physics.getGravity());
+            gravity.x = (float) jsonGravity.optDouble("x", gravity.x);
+            gravity.y = (float) jsonGravity.optDouble("y", gravity.y);
+            physics.setGravity(gravity);
+        }
+        JSONArray jsonEntities = json.getJSONArray("entities");
         for (int i = 0; i < jsonEntities.length(); i++) {
             JSONObject jsonEntity = jsonEntities.getJSONObject(i);
             if (jsonEntity.has("x") || jsonEntity.has("y")) {

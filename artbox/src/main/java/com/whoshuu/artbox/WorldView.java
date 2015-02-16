@@ -20,7 +20,7 @@ public class WorldView extends SurfaceView implements SurfaceHolder.Callback {
     public WorldView(Context context, AttributeSet attrs) {
         super(context, attrs);
         getHolder().addCallback(this);
-        engine = new Engine(getHolder(), 0.0f, -10.0f);
+        engine = new Engine(getHolder());
         this.setOnTouchListener(engine);
 
         TouchUpdateSystem touchSystem = new TouchUpdateSystem();
