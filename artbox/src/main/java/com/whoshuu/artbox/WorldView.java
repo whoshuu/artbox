@@ -3,10 +3,12 @@ package com.whoshuu.artbox;
 import java.util.ArrayList;
 
 import android.content.Context;
+import android.content.res.TypedArray;
 import android.util.AttributeSet;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 
+import com.whoshuu.artbox.R;
 import com.whoshuu.artbox.artemis.EntitySystem;
 import com.whoshuu.artbox.system.AnimationSystem;
 import com.whoshuu.artbox.system.BodyPositionSystem;
@@ -19,6 +21,16 @@ public class WorldView extends SurfaceView implements SurfaceHolder.Callback {
 
     public WorldView(Context context, AttributeSet attrs) {
         super(context, attrs);
+
+        TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.WorldView);
+
+        String map = "maps/level.json";
+        try {
+            map = a.getString(R.styleable.WorldView_map);
+        } finally {
+            a.recycle();
+        }
+
         getHolder().addCallback(this);
         engine = new Engine(getHolder());
         this.setOnTouchListener(engine);
@@ -34,7 +46,7 @@ public class WorldView extends SurfaceView implements SurfaceHolder.Callback {
         addSystem(new SpriteRenderSystem(), SystemType.BASE_RENDER);
         addSystem(new DebugBodyRenderSystem(), SystemType.BASE_RENDER);
 
-        engine.loadMap("maps/level.json");
+        engine.loadMap(map);
     }
 
     public void addSystems(ArrayList<EntitySystem> systems, SystemType type) {
