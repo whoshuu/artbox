@@ -11,9 +11,11 @@ import android.view.SurfaceView;
 import com.whoshuu.artbox.R;
 import com.whoshuu.artbox.artemis.EntitySystem;
 import com.whoshuu.artbox.system.AnimationSystem;
+import com.whoshuu.artbox.system.AnimationStateSystem;
 import com.whoshuu.artbox.system.BodyPositionSystem;
 import com.whoshuu.artbox.system.DebugBodyRenderSystem;
 import com.whoshuu.artbox.system.SpriteRenderSystem;
+import com.whoshuu.artbox.system.SpriteStateSystem;
 import com.whoshuu.artbox.system.SystemType;
 import com.whoshuu.artbox.system.TouchUpdateSystem;
 
@@ -42,6 +44,8 @@ public class WorldView extends SurfaceView implements SurfaceHolder.Callback {
         setFocusable(true);
 
         addSystem(new BodyPositionSystem(), SystemType.BASE_LOGIC);
+        addSystem(new AnimationStateSystem(), SystemType.BASE_LOGIC);
+        addSystem(new SpriteStateSystem(), SystemType.BASE_LOGIC);
         addSystem(new AnimationSystem(), SystemType.BASE_LOGIC);
         addSystem(new SpriteRenderSystem(), SystemType.BASE_RENDER);
         addSystem(new DebugBodyRenderSystem(), SystemType.BASE_RENDER);
