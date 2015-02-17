@@ -1,1 +1,14 @@
-<manifest package="com.whoshuu.artbox" />
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.whoshuu.artbox"
+    android:versionCode="1"
+    android:versionName="0.1.0">
+
+    <uses-sdk
+        android:targetSdkVersion="17"
+        android:minSdkVersion="8">
+    </uses-sdk>
+
+    <application>
+    </application>
+</manifest>

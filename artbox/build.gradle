@@ -19,20 +19,6 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.txt'
         }
     }
-
-    sourceSets {
-        main {
-            java {
-                srcDir 'src/main/java'
-            }
-            res {
-                srcDirs 'src/main/res'
-            }
-            assets {
-                srcDirs 'src/main/assets'
-            }
-        }
-    }
 }
 
 dependencies {
@@ -40,21 +26,13 @@ dependencies {
     compile 'org.jbox2d:jbox2d-library:2.2.1.1'
 }
 
-task jar(type: Jar) {
-    from android.sourceSets.main.java.srcDirs
-    baseName project.name
-    version project.version
-}
-
 publishing {
     publications {
         mavenJava(MavenPublication) {
-            artifact jar
+            artifact bundleRelease
         }
     }
     repositories {
         mavenCentral()
     }
 }
-
-build.dependsOn jar
