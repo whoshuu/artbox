@@ -16,6 +16,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import com.whoshuu.artbox.Engine;
 import com.whoshuu.artbox.GameContext;
 
 public class MapLoader {
@@ -59,14 +60,20 @@ public class MapLoader {
     }
 
     public static void fromJson(JSONObject json) throws JSONException {
+        World physics = GameContext.get().getPhysics();
+        Engine engine = GameContext.get().getEngine();
         if (json.has("gravity")) {
             // If there's gravity, set it
-            World physics = GameContext.get().getPhysics();
             JSONObject jsonGravity = json.getJSONObject("gravity");
             Vec2 gravity = new Vec2(physics.getGravity());
             gravity.x = (float) jsonGravity.optDouble("x", gravity.x);
             gravity.y = (float) jsonGravity.optDouble("y", gravity.y);
             physics.setGravity(gravity);
+        }
+        if (json.has("fps")) {
+            // If there's fps, use it
+            float fps = (float) json.getDouble("fps");
+            engine.setFps(fps);
         }
         JSONArray jsonEntities = json.getJSONArray("entities");
         for (int i = 0; i < jsonEntities.length(); i++) {

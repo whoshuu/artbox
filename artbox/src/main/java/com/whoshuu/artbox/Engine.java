@@ -49,6 +49,10 @@ public class Engine extends Thread implements OnTouchListener {
         initializeSystems();
     }
 
+    public void setFps(float fps) {
+        timeStep = 1.0f/fps;
+    }
+
     public void loadMap(String map) {
         this.map = map;
     }
@@ -72,7 +76,6 @@ public class Engine extends Thread implements OnTouchListener {
     public void run() {
         Canvas canvas;
 
-        final float timeStep = 1.0f/30.0f;
         int positionIterations = 10;
         int velocityIterations = 10;
 
@@ -168,4 +171,5 @@ public class Engine extends Thread implements OnTouchListener {
     private ArrayList<TouchListener> touchListeners;
     private ArrayList<ArrayList<EntitySystem>> systems;
     private String map;
+    private float timeStep = 1.0f/30.0f;
 }
