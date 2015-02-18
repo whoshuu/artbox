@@ -75,6 +75,14 @@ public class MapLoader {
             float fps = (float) json.getDouble("fps");
             engine.setFps(fps);
         }
+        if (json.has("positionIterations")) {
+            int positionIterations = json.getInt("positionIterations");
+            engine.setPositionIterations(positionIterations);
+        }
+        if (json.has("velocityIterations")) {
+            int velocityIterations = json.getInt("velocityIterations");
+            engine.setVelocityIterations(velocityIterations);
+        }
         JSONArray jsonEntities = json.getJSONArray("entities");
         for (int i = 0; i < jsonEntities.length(); i++) {
             JSONObject jsonEntity = jsonEntities.getJSONObject(i);

@@ -53,6 +53,14 @@ public class Engine extends Thread implements OnTouchListener {
         timeStep = 1.0f/fps;
     }
 
+    public void setPositionIterations(int positionIterations) {
+        this.positionIterations = positionIterations;
+    }
+
+    public void setVelocityIterations(int velocityIterations) {
+        this.velocityIterations = velocityIterations;
+    }
+
     public void loadMap(String map) {
         this.map = map;
     }
@@ -75,9 +83,6 @@ public class Engine extends Thread implements OnTouchListener {
     @Override
     public void run() {
         Canvas canvas;
-
-        int positionIterations = 10;
-        int velocityIterations = 10;
 
         game.setDelta(0);
         while (run) {
@@ -172,4 +177,6 @@ public class Engine extends Thread implements OnTouchListener {
     private ArrayList<ArrayList<EntitySystem>> systems;
     private String map;
     private float timeStep = 1.0f/30.0f;
+    private int positionIterations = 10;
+    private int velocityIterations = 10;
 }
